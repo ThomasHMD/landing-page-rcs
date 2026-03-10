@@ -16,36 +16,41 @@
     }
   </script>
 
-  <!-- Fonts : Syne (titres) + DM Sans (corps) -->
+  <!-- Inter — même font que Programme-Municipales -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     /* ============================================================
-       VARIABLES
+       VARIABLES — raccord avec Programme-Municipales
     ============================================================ */
     :root {
-      --navy:        #0a1628;
-      --navy-mid:    #162b52;
-      --rose:        #e92e6c;
-      --green:       #81bc38;
-      --yellow:      #efe526;
-      --purple:      #ab31e5;
-      --blue:        #203a6a;
+      --c-rose:   #e92e6c;
+      --c-green:  #81bc38;
+      --c-purple: #ab31e5;
+      --c-blue:   #203a6a;
+      --c-yellow: #efe526;
 
-      --bg:          #f0f3fa;
-      --surface:     #ffffff;
-      --text:        #0a1628;
-      --text-mid:    #3d5070;
-      --text-soft:   #8397b8;
+      --bg-base:       #eef1fa;
+      --bg-surface:    #ffffff;
+      --bg-hero:       #0f1f45;
 
-      --border:      rgba(32, 58, 106, 0.10);
-      --r-sm:        10px;
-      --r-md:        16px;
-      --r-lg:        22px;
-      --r-xl:        28px;
-      --r-full:      9999px;
+      --text-primary:   #0f1729;
+      --text-secondary: #3d5070;
+      --text-muted:     #7a90b8;
+
+      --border-subtle: rgba(32, 58, 106, 0.10);
+      --border-light:  rgba(32, 58, 106, 0.20);
+
+      --t-fast:   150ms ease;
+      --t-normal: 260ms ease;
+
+      --r-sm:   8px;
+      --r-md:   14px;
+      --r-lg:   20px;
+      --r-xl:   28px;
+      --r-full: 9999px;
     }
 
     /* ============================================================
@@ -55,43 +60,45 @@
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
       min-height: 100dvh;
-      line-height: 1.6;
+      line-height: 1.65;
       overflow-x: hidden;
     }
 
+    a { text-decoration: none; color: inherit; }
+
     /* ============================================================
-       HERO — full bleed, pas de hacks de marges
+       HERO — full bleed, gradient raccord Programme-Municipales
     ============================================================ */
     .hero {
       position: relative;
       overflow: hidden;
-      background: var(--navy);
+      background: linear-gradient(135deg, #0c1a35 0%, #1a3060 50%, #162b52 100%);
       padding: env(safe-area-inset-top, 0) 0 0;
     }
 
-    /* Bande arc-en-ciel en haut */
+    /* Bande arc-en-ciel — identique Programme-Municipales */
     .hero-stripe {
       height: 5px;
-      background: linear-gradient(to right, var(--rose), var(--yellow), var(--green), var(--blue), var(--purple));
+      background: linear-gradient(to right, var(--c-rose), var(--c-yellow), var(--c-green), var(--c-blue), var(--c-purple));
     }
 
-    /* Halos décoratifs */
-    .hero-glow-rose {
+    /* Halos décoratifs — mêmes couleurs que le hero du programme */
+    .hero-glow-1 {
       position: absolute;
-      top: -80px; right: -60px;
-      width: 320px; height: 320px;
-      background: radial-gradient(circle, rgba(233,46,108,0.30) 0%, transparent 65%);
+      top: -40%; right: -5%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(233,46,108,0.40) 0%, transparent 65%);
       pointer-events: none;
     }
-    .hero-glow-green {
+    .hero-glow-2 {
       position: absolute;
-      bottom: -60px; left: -40px;
-      width: 240px; height: 240px;
-      background: radial-gradient(circle, rgba(129,188,56,0.15) 0%, transparent 65%);
+      bottom: -20%; left: 30%;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(129,188,56,0.18) 0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -106,37 +113,43 @@
     }
 
     .hero-eyebrow {
-      display: inline-block;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
+      font-size: 13px;
+      font-weight: 700;
       color: rgba(255,255,255,0.45);
-      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      margin-bottom: 20px;
+      display: block;
     }
 
     .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(22px, 6vw, 32px);
+      font-size: clamp(22px, 6vw, 28px);
       font-weight: 800;
-      line-height: 1.18;
-      letter-spacing: -0.01em;
-      margin-bottom: 14px;
+      line-height: 1.15;
+      margin-bottom: 6px;
     }
     .hero-title em {
       font-style: normal;
-      color: var(--rose);
+      color: var(--c-rose);
     }
 
-    .hero-subtitle {
-      font-size: 15px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.65);
+    .hero-candidate {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+      margin-top: 16px;
+    }
+
+    .hero-tagline {
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.80);
+      margin-top: 6px;
+      line-height: 1.4;
     }
 
     /* ============================================================
-       CONTENU PRINCIPAL — container centré
+       CONTENU — container centré
     ============================================================ */
     .main {
       max-width: 520px;
@@ -152,126 +165,99 @@
       text-align: center;
     }
     .pitch-headline {
-      font-family: 'Syne', sans-serif;
       font-size: clamp(18px, 5vw, 22px);
       font-weight: 800;
       line-height: 1.25;
-      color: var(--text);
+      color: var(--text-primary);
       margin-bottom: 8px;
     }
     .pitch-sub {
       font-size: 15px;
-      color: var(--text-mid);
+      color: var(--text-secondary);
     }
 
     /* ============================================================
-       PRÉVISUALISATION DU MESSAGE — la section clé
+       PRÉVISUALISATION DU MESSAGE — carte claire et lumineuse
     ============================================================ */
     .preview-section {
       margin-bottom: 8px;
     }
 
     .preview-card {
-      background: var(--navy);
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-subtle);
       border-radius: var(--r-xl);
       padding: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Grain subtil sur la carte */
-    .preview-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      opacity: 0.4;
-      pointer-events: none;
+      box-shadow: 0 2px 16px rgba(32, 58, 106, 0.08);
     }
 
     .preview-label {
       display: flex;
       align-items: center;
-      gap: 7px;
-      font-size: 10.5px;
-      font-weight: 600;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.11em;
-      color: rgba(255,255,255,0.40);
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
       margin-bottom: 14px;
-      position: relative;
-      z-index: 1;
     }
-    .preview-label-dot {
-      width: 6px; height: 6px;
-      background: var(--green);
-      border-radius: 50%;
+    .preview-label-icon {
+      font-size: 14px;
       flex-shrink: 0;
-      animation: pulse-dot 2s ease infinite;
-    }
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.5; transform: scale(0.8); }
     }
 
-    /* La bulle de message */
+    /* Bulle de message — fond bleu campagne, texte blanc */
     .message-bubble-wrap {
       display: flex;
-      justify-content: flex-end;
-      position: relative;
-      z-index: 1;
+      justify-content: flex-start;
     }
 
     .message-bubble {
-      background: var(--rose);
+      background: var(--c-blue);
       color: #fff;
-      border-radius: 18px 4px 18px 18px;
+      border-radius: 4px 18px 18px 18px;
       padding: 14px 16px;
-      max-width: 88%;
+      max-width: 92%;
       font-size: 14.5px;
       line-height: 1.55;
-      position: relative;
       word-break: break-word;
+      box-shadow: 0 4px 14px rgba(32, 58, 106, 0.18);
+      position: relative;
     }
 
-    /* La flèche de la bulle */
-    .message-bubble::after {
+    /* Petite flèche de la bulle */
+    .message-bubble::before {
       content: '';
       position: absolute;
-      top: 0; right: -7px;
+      top: 0; left: -6px;
       width: 0; height: 0;
-      border-left: 8px solid var(--rose);
-      border-top: 0px solid transparent;
-      border-bottom: 10px solid transparent;
+      border-right: 7px solid var(--c-blue);
+      border-bottom: 8px solid transparent;
     }
 
     .message-bubble-time {
       display: block;
       text-align: right;
       font-size: 11px;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.50);
       margin-top: 6px;
     }
 
-    /* Barre de statut fictive en bas de la carte */
-    .preview-footer {
+    /* Note sous la bulle */
+    .preview-note {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
       gap: 6px;
-      margin-top: 14px;
+      margin-top: 12px;
       padding-top: 12px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      position: relative;
-      z-index: 1;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12.5px;
+      color: var(--text-muted);
     }
-    .preview-footer-text {
-      font-size: 11px;
-      color: rgba(255,255,255,0.30);
-    }
-    .preview-checkmarks {
-      color: var(--green);
+    .preview-note-icon {
       font-size: 13px;
+      flex-shrink: 0;
     }
 
     /* ============================================================
@@ -290,14 +276,14 @@
     .share-header-line {
       flex: 1;
       height: 1px;
-      background: var(--border);
+      background: var(--border-light);
     }
     .share-header-label {
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-soft);
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
       white-space: nowrap;
     }
 
@@ -312,70 +298,66 @@
       align-items: center;
       gap: 14px;
       padding: 0 20px;
-      height: 58px;
+      height: 56px;
       border-radius: var(--r-md);
       border: none;
       color: #fff;
-      font-family: 'DM Sans', inherit;
-      font-size: 16px;
+      font-family: 'Inter', inherit;
+      font-size: 15px;
       font-weight: 600;
       text-decoration: none;
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      transition: transform var(--t-fast), box-shadow var(--t-fast);
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Shine effect on press */
     .share-btn::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 50%);
       pointer-events: none;
     }
 
-    .share-btn:active {
-      transform: scale(0.98);
-    }
+    .share-btn:active { transform: scale(0.98); }
     @media (hover: hover) {
       .share-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+        box-shadow: 0 6px 22px rgba(0,0,0,0.20);
       }
     }
 
     .share-btn svg {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       flex-shrink: 0;
     }
     .share-btn-label { flex: 1; }
     .share-btn-arrow {
-      font-size: 22px;
+      font-size: 20px;
       opacity: 0.55;
-      font-weight: 400;
     }
 
-    .btn-whatsapp  { background: #22c55e; }
-    .btn-sms       { background: #16a34a; }
-    .btn-telegram  { background: #0ea5e9; }
-    .btn-email     { background: var(--blue); }
+    .btn-whatsapp  { background: #25D366; }
+    .btn-sms       { background: #34C759; }
+    .btn-telegram  { background: #0088cc; }
+    .btn-email     { background: var(--c-blue); }
 
-    /* Animation d'entrée échelonnée */
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(18px); }
+    /* Animation d'entrée */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     .share-btn {
       opacity: 0;
-      animation: slideUp 0.45s ease forwards;
+      animation: fadeUp 0.4s ease forwards;
     }
     .share-btn:nth-child(1) { animation-delay: 0.05s; }
-    .share-btn:nth-child(2) { animation-delay: 0.12s; }
-    .share-btn:nth-child(3) { animation-delay: 0.19s; }
-    .share-btn:nth-child(4) { animation-delay: 0.26s; }
+    .share-btn:nth-child(2) { animation-delay: 0.10s; }
+    .share-btn:nth-child(3) { animation-delay: 0.15s; }
+    .share-btn:nth-child(4) { animation-delay: 0.20s; }
 
     /* ============================================================
        CTA PROGRAMME
@@ -389,111 +371,103 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--surface);
-      color: var(--blue);
-      font-family: 'DM Sans', inherit;
+      background: var(--bg-surface);
+      color: var(--c-blue);
+      font-family: inherit;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       padding: 14px 28px;
       border-radius: var(--r-full);
-      border: 2px solid rgba(32,58,106,0.25);
-      text-decoration: none;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(32,58,106,0.08);
+      border: 2px solid var(--c-blue);
+      transition: all var(--t-normal);
+      box-shadow: 0 2px 8px rgba(32,58,106,0.06);
     }
     @media (hover: hover) {
       .btn-programme:hover {
-        background: var(--blue);
+        background: var(--c-blue);
         color: #fff;
-        border-color: var(--blue);
-        box-shadow: 0 6px 20px rgba(32,58,106,0.25);
         transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(32,58,106,0.25);
       }
     }
 
     /* ============================================================
-       FOOTER
+       FOOTER — raccord Programme-Municipales
     ============================================================ */
     .footer {
       text-align: center;
-      padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0));
-      border-top: 1px solid var(--border);
-      background: var(--surface);
+      padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0));
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
     }
     .footer-name {
-      font-family: 'Syne', sans-serif;
       font-size: 14px;
       font-weight: 700;
-      color: var(--blue);
-      margin-bottom: 6px;
+      color: var(--c-blue);
+      margin-bottom: 4px;
     }
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 16px;
       margin-bottom: 10px;
     }
     .footer-links a {
       font-size: 13px;
-      color: var(--text-soft);
-      text-decoration: none;
-      transition: color 0.15s;
+      color: var(--text-muted);
+      transition: color var(--t-fast);
     }
-    .footer-links a:hover { color: var(--blue); }
+    .footer-links a:hover { color: var(--c-blue); }
     .footer-legal {
       font-size: 11px;
-      color: var(--text-soft);
-      line-height: 1.6;
+      color: var(--text-muted);
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
 
-  <!-- ============================================================
-       HERO
-  ============================================================ -->
+  <!-- HERO -->
   <header class="hero">
     <div class="hero-stripe"></div>
-    <div class="hero-glow-rose"></div>
-    <div class="hero-glow-green"></div>
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
     <div class="hero-inner">
-      <span class="hero-eyebrow">Élections municipales · 15 mars 2026</span>
+      <span class="hero-eyebrow">Élections municipales 2026</span>
       <h1 class="hero-title">
-        Dimanche,<br>
+        Dimanche 15 mars,<br>
         <em>1 seul tour, 1 seul bulletin,</em><br>
-        1 seule opportunité.
+        1 seule opportunité pour changer Wasquehal.
       </h1>
-      <p class="hero-subtitle">Wasquehal Vivante — Benoit Tirmarche</p>
+      <p class="hero-candidate">Wasquehal Vivante — Benoit Tirmarche</p>
     </div>
   </header>
 
-  <!-- ============================================================
-       CONTENU
-  ============================================================ -->
+  <!-- CONTENU -->
   <main class="main">
 
     <!-- Accroche -->
     <section class="pitch">
       <p class="pitch-headline">C'est avec vous qu'on peut gagner.<br>C'est à vous de voter.</p>
-      <p class="pitch-sub">Partagez ce message — chaque voix compte.</p>
+      <p class="pitch-sub">Partagez ce message autour de vous, chaque voix compte.</p>
     </section>
 
     <!-- Prévisualisation du message -->
     <div class="preview-section">
       <div class="preview-card">
         <div class="preview-label">
-          <span class="preview-label-dot"></span>
-          Le message que vos proches vont recevoir
+          <span class="preview-label-icon">💬</span>
+          Le message qui sera envoyé
         </div>
         <div class="message-bubble-wrap">
           <div class="message-bubble">
-            <span id="preview-text">Chargement du message…</span>
+            <span id="preview-text">Chargement…</span>
             <span class="message-bubble-time">maintenant</span>
           </div>
         </div>
-        <div class="preview-footer">
-          <span class="preview-footer-text">Envoyé · Lu</span>
-          <span class="preview-checkmarks">✓✓</span>
+        <div class="preview-note">
+          <span class="preview-note-icon">✏️</span>
+          Vous pourrez le modifier avant de l'envoyer
         </div>
       </div>
     </div>
@@ -502,32 +476,32 @@
     <section class="share-section">
       <div class="share-header">
         <div class="share-header-line"></div>
-        <span class="share-header-label">Choisissez votre canal</span>
+        <span class="share-header-label">Partagez en 1 clic</span>
         <div class="share-header-line"></div>
       </div>
       <div class="share-buttons">
 
         <a class="share-btn btn-whatsapp" id="btn-whatsapp" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          <span class="share-btn-label">WhatsApp</span>
+          <span class="share-btn-label">Partager sur WhatsApp</span>
           <span class="share-btn-arrow">›</span>
         </a>
 
         <a class="share-btn btn-sms" id="btn-sms" href="#" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
-          <span class="share-btn-label">SMS / iMessage</span>
+          <span class="share-btn-label">Envoyer par SMS</span>
           <span class="share-btn-arrow">›</span>
         </a>
 
         <a class="share-btn btn-telegram" id="btn-telegram" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          <span class="share-btn-label">Telegram</span>
+          <span class="share-btn-label">Partager sur Telegram</span>
           <span class="share-btn-arrow">›</span>
         </a>
 
         <a class="share-btn btn-email" id="btn-email" href="#" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          <span class="share-btn-label">Email</span>
+          <span class="share-btn-label">Envoyer par email</span>
           <span class="share-btn-arrow">›</span>
         </a>
 
@@ -543,9 +517,7 @@
 
   </main>
 
-  <!-- ============================================================
-       FOOTER
-  ============================================================ -->
+  <!-- FOOTER -->
   <footer class="footer">
     <p class="footer-name">Wasquehal Vivante</p>
     <div class="footer-links">
@@ -558,9 +530,7 @@
     </p>
   </footer>
 
-  <!-- ============================================================
-       JS — charge message.json et câble les URLs
-  ============================================================ -->
+  <!-- JS — charge message.json et câble les URLs -->
   <script>
     const FALLBACK = "Salut ! Dimanche, c'est l'élection. C'est la dernière chance de changer la ville les prochaines années. Je soutiens Wasquehal Vivante, je t'encourage à voter pour eux. Regarde leur programme : https://wasquehal-vivante.fr/";
     const FALLBACK_PROG = 'https://wasquehal-vivante.fr/';
@@ -569,10 +539,8 @@
     function applyData(msg, programmeUrl, candidateUrl) {
       const encoded = encodeURIComponent(msg);
 
-      // Prévisualisation du message
       document.getElementById('preview-text').textContent = msg;
 
-      // Boutons de partage
       document.getElementById('btn-whatsapp').href = 'https://wa.me/?text=' + encoded;
       document.getElementById('btn-sms').href      = 'sms:?body=' + encoded;
       document.getElementById('btn-telegram').href =
@@ -580,7 +548,6 @@
       document.getElementById('btn-email').href =
         'mailto:?subject=' + encodeURIComponent('Dimanche, votez Wasquehal Vivante') + '&body=' + encoded;
 
-      // Liens programme / candidat
       document.getElementById('btn-programme').href  = programmeUrl;
       document.getElementById('link-programme').href = programmeUrl;
       document.getElementById('link-candidat').href  = candidateUrl;
@@ -589,7 +556,7 @@
     fetch('message.json')
       .then(r => r.json())
       .then(data => applyData(
-        data.shareText   || FALLBACK,
+        data.shareText    || FALLBACK,
         data.programmeUrl || FALLBACK_PROG,
         data.candidateUrl || FALLBACK_CAND
       ))
