@@ -2,158 +2,303 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wasquehal Vivante — Dimanche 15 mars, votez !</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Wasquehal Vivante — Votez dimanche 15 mars</title>
   <meta name="description" content="Dimanche 15 mars, 1 seul tour, 1 seul bulletin. Votez Wasquehal Vivante.">
   <meta property="og:title" content="Wasquehal Vivante — Votez dimanche 15 mars">
   <meta property="og:description" content="C'est la dernière chance de changer Wasquehal. Partagez autour de vous !">
   <meta property="og:type" content="website">
+
+  <!-- Forcer HTTPS -->
+  <script>
+    if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+      location.replace('https:' + location.href.substring(5));
+    }
+  </script>
+
+  <!-- Fonts : Syne (titres) + DM Sans (corps) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
+  <style>
+    /* ============================================================
+       VARIABLES
+    ============================================================ */
     :root {
-      --c-rose:   #e92e6c;
-      --c-green:  #81bc38;
-      --c-purple: #ab31e5;
-      --c-blue:   #203a6a;
-      --c-yellow: #efe526;
-      --bg-base:  #eef1fa;
-      --text-primary: #0f1729;
-      --text-secondary: #3d5070;
-      --text-muted: #7a90b8;
-      --border-subtle: rgba(32, 58, 106, 0.10);
-      --r-md: 14px;
-      --r-lg: 20px;
-      --r-xl: 28px;
-      --r-full: 9999px;
+      --navy:        #0a1628;
+      --navy-mid:    #162b52;
+      --rose:        #e92e6c;
+      --green:       #81bc38;
+      --yellow:      #efe526;
+      --purple:      #ab31e5;
+      --blue:        #203a6a;
+
+      --bg:          #f0f3fa;
+      --surface:     #ffffff;
+      --text:        #0a1628;
+      --text-mid:    #3d5070;
+      --text-soft:   #8397b8;
+
+      --border:      rgba(32, 58, 106, 0.10);
+      --r-sm:        10px;
+      --r-md:        16px;
+      --r-lg:        22px;
+      --r-xl:        28px;
+      --r-full:      9999px;
     }
+
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg-base);
-      color: var(--text-primary);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100dvh;
       line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      overflow-x: hidden;
     }
 
-    .page {
-      width: 100%;
-      max-width: 480px;
-      padding: 0 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ---- HERO ---- */
+    /* ============================================================
+       HERO — full bleed, pas de hacks de marges
+    ============================================================ */
     .hero {
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #0c1a35 0%, #1a3060 50%, #162b52 100%);
-      border-radius: 0 0 var(--r-xl) var(--r-xl);
-      padding: 48px 24px 36px;
-      color: #fff;
-      text-align: center;
-      margin: 0 -16px;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -40%;
-      right: -15%;
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle, rgba(233, 46, 108, 0.35) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -20%;
-      left: 10%;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(129, 188, 56, 0.15) 0%, transparent 60%);
-      pointer-events: none;
+      background: var(--navy);
+      padding: env(safe-area-inset-top, 0) 0 0;
     }
 
     /* Bande arc-en-ciel en haut */
-    .hero-accent {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(to right, #e92e6c, #efe526, #81bc38, #203a6a, #ab31e5);
-      z-index: 2;
+    .hero-stripe {
+      height: 5px;
+      background: linear-gradient(to right, var(--rose), var(--yellow), var(--green), var(--blue), var(--purple));
     }
 
-    .hero-content { position: relative; z-index: 1; }
+    /* Halos décoratifs */
+    .hero-glow-rose {
+      position: absolute;
+      top: -80px; right: -60px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(233,46,108,0.30) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-glow-green {
+      position: absolute;
+      bottom: -60px; left: -40px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(129,188,56,0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
 
-    .hero-election {
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 40px 20px 44px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: rgba(255, 255, 255, 0.50);
-      margin-bottom: 16px;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 18px;
     }
 
     .hero-title {
-      font-size: 24px;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(22px, 6vw, 32px);
       font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 12px;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
     }
     .hero-title em {
       font-style: normal;
-      color: var(--c-rose);
+      color: var(--rose);
     }
 
     .hero-subtitle {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 400;
-      color: rgba(255, 255, 255, 0.80);
-      line-height: 1.5;
+      color: rgba(255,255,255,0.65);
     }
 
-    /* ---- MESSAGE CENTRAL ---- */
-    .message-section {
-      padding: 32px 0 8px;
+    /* ============================================================
+       CONTENU PRINCIPAL — container centré
+    ============================================================ */
+    .main {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ============================================================
+       ACCROCHE
+    ============================================================ */
+    .pitch {
+      padding: 28px 0 20px;
       text-align: center;
     }
-
-    .message-main {
-      font-size: 20px;
+    .pitch-headline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(18px, 5vw, 22px);
       font-weight: 800;
-      color: var(--text-primary);
-      line-height: 1.35;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .pitch-sub {
+      font-size: 15px;
+      color: var(--text-mid);
+    }
+
+    /* ============================================================
+       PRÉVISUALISATION DU MESSAGE — la section clé
+    ============================================================ */
+    .preview-section {
       margin-bottom: 8px;
     }
 
-    .message-sub {
-      font-size: 15px;
-      color: var(--text-secondary);
+    .preview-card {
+      background: var(--navy);
+      border-radius: var(--r-xl);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* ---- SHARE BUTTONS ---- */
-    .share-section {
-      padding: 24px 0;
+    /* Grain subtil sur la carte */
+    .preview-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
     }
 
-    .share-label {
-      font-size: 11px;
-      font-weight: 700;
+    .preview-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 10.5px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 16px;
+      letter-spacing: 0.11em;
+      color: rgba(255,255,255,0.40);
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .preview-label-dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-dot 2s ease infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* La bulle de message */
+    .message-bubble-wrap {
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
+    }
+
+    .message-bubble {
+      background: var(--rose);
+      color: #fff;
+      border-radius: 18px 4px 18px 18px;
+      padding: 14px 16px;
+      max-width: 88%;
+      font-size: 14.5px;
+      line-height: 1.55;
+      position: relative;
+      word-break: break-word;
+    }
+
+    /* La flèche de la bulle */
+    .message-bubble::after {
+      content: '';
+      position: absolute;
+      top: 0; right: -7px;
+      width: 0; height: 0;
+      border-left: 8px solid var(--rose);
+      border-top: 0px solid transparent;
+      border-bottom: 10px solid transparent;
+    }
+
+    .message-bubble-time {
+      display: block;
+      text-align: right;
+      font-size: 11px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 6px;
+    }
+
+    /* Barre de statut fictive en bas de la carte */
+    .preview-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      z-index: 1;
+    }
+    .preview-footer-text {
+      font-size: 11px;
+      color: rgba(255,255,255,0.30);
+    }
+    .preview-checkmarks {
+      color: var(--green);
+      font-size: 13px;
+    }
+
+    /* ============================================================
+       BOUTONS DE PARTAGE
+    ============================================================ */
+    .share-section {
+      padding: 16px 0 8px;
+    }
+
+    .share-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .share-header-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .share-header-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-soft);
+      white-space: nowrap;
     }
 
     .share-buttons {
@@ -166,47 +311,77 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 16px 20px;
+      padding: 0 20px;
+      height: 58px;
       border-radius: var(--r-md);
       border: none;
       color: #fff;
-      font-family: inherit;
+      font-family: 'DM Sans', inherit;
       font-size: 16px;
       font-weight: 600;
       text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      -webkit-tap-highlight-color: transparent;
     }
-    .share-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+
+    /* Shine effect on press */
+    .share-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+      pointer-events: none;
     }
+
     .share-btn:active {
-      transform: translateY(0);
+      transform: scale(0.98);
+    }
+    @media (hover: hover) {
+      .share-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+      }
     }
 
     .share-btn svg {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       flex-shrink: 0;
     }
-
-    .share-btn-whatsapp  { background: #25D366; }
-    .share-btn-sms       { background: #34C759; }
-    .share-btn-telegram  { background: #0088cc; }
-    .share-btn-email     { background: var(--c-blue); }
-
-    .share-btn-text {
-      flex: 1;
-    }
+    .share-btn-label { flex: 1; }
     .share-btn-arrow {
-      font-size: 20px;
-      opacity: 0.7;
+      font-size: 22px;
+      opacity: 0.55;
+      font-weight: 400;
     }
 
-    /* ---- CTA PROGRAMME ---- */
+    .btn-whatsapp  { background: #22c55e; }
+    .btn-sms       { background: #16a34a; }
+    .btn-telegram  { background: #0ea5e9; }
+    .btn-email     { background: var(--blue); }
+
+    /* Animation d'entrée échelonnée */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .share-btn {
+      opacity: 0;
+      animation: slideUp 0.45s ease forwards;
+    }
+    .share-btn:nth-child(1) { animation-delay: 0.05s; }
+    .share-btn:nth-child(2) { animation-delay: 0.12s; }
+    .share-btn:nth-child(3) { animation-delay: 0.19s; }
+    .share-btn:nth-child(4) { animation-delay: 0.26s; }
+
+    /* ============================================================
+       CTA PROGRAMME
+    ============================================================ */
     .programme-section {
-      padding: 16px 0 32px;
+      padding: 20px 0 28px;
       text-align: center;
     }
 
@@ -214,153 +389,168 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #fff;
-      color: var(--c-blue);
-      font-family: inherit;
+      background: var(--surface);
+      color: var(--blue);
+      font-family: 'DM Sans', inherit;
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 600;
       padding: 14px 28px;
       border-radius: var(--r-full);
-      border: 2px solid var(--c-blue);
+      border: 2px solid rgba(32,58,106,0.25);
       text-decoration: none;
       transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(32,58,106,0.08);
     }
-    .btn-programme:hover {
-      background: var(--c-blue);
-      color: #fff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(32, 58, 106, 0.25);
+    @media (hover: hover) {
+      .btn-programme:hover {
+        background: var(--blue);
+        color: #fff;
+        border-color: var(--blue);
+        box-shadow: 0 6px 20px rgba(32,58,106,0.25);
+        transform: translateY(-1px);
+      }
     }
 
-    /* ---- FOOTER ---- */
+    /* ============================================================
+       FOOTER
+    ============================================================ */
     .footer {
       text-align: center;
-      padding: 24px 0;
-      margin-top: auto;
+      padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0));
+      border-top: 1px solid var(--border);
+      background: var(--surface);
     }
-
-    .footer-list {
+    .footer-name {
+      font-family: 'Syne', sans-serif;
       font-size: 14px;
       font-weight: 700;
-      color: var(--c-blue);
-      margin-bottom: 4px;
+      color: var(--blue);
+      margin-bottom: 6px;
     }
-
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 16px;
-      margin-bottom: 12px;
+      gap: 20px;
+      margin-bottom: 10px;
     }
     .footer-links a {
       font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: underline;
-      text-decoration-color: transparent;
-      transition: color 0.15s, text-decoration-color 0.15s;
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: color 0.15s;
     }
-    .footer-links a:hover {
-      color: var(--c-blue);
-      text-decoration-color: var(--c-blue);
-    }
-
+    .footer-links a:hover { color: var(--blue); }
     .footer-legal {
       font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* ---- ANIMATIONS ---- */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .animate-in {
-      opacity: 0;
-      animation: fadeUp 0.5s ease forwards;
-    }
-    .animate-in:nth-child(1) { animation-delay: 0ms; }
-    .animate-in:nth-child(2) { animation-delay: 80ms; }
-    .animate-in:nth-child(3) { animation-delay: 160ms; }
-    .animate-in:nth-child(4) { animation-delay: 240ms; }
-
-    /* Desktop : un peu plus large */
-    @media (min-width: 481px) {
-      .page { max-width: 520px; padding: 0 24px; }
-      .hero { margin: 0 -24px; padding: 56px 32px 40px; }
-      .hero-title { font-size: 28px; }
+      color: var(--text-soft);
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
 
-<div class="page">
-
-  <!-- HERO -->
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
   <header class="hero">
-    <div class="hero-accent"></div>
-    <div class="hero-content">
-      <p class="hero-election">Élections municipales 2026</p>
+    <div class="hero-stripe"></div>
+    <div class="hero-glow-rose"></div>
+    <div class="hero-glow-green"></div>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Élections municipales · 15 mars 2026</span>
       <h1 class="hero-title">
-        Dimanche 15 mars,<br>
+        Dimanche,<br>
         <em>1 seul tour, 1 seul bulletin,</em><br>
-        1 seule opportunité pour changer Wasquehal.
+        1 seule opportunité.
       </h1>
       <p class="hero-subtitle">Wasquehal Vivante — Benoit Tirmarche</p>
     </div>
   </header>
 
-  <!-- MESSAGE -->
-  <section class="message-section">
-    <p class="message-main">C'est avec vous qu'on peut gagner.<br>C'est à vous de voter.</p>
-    <p class="message-sub">Partagez ce message autour de vous, chaque voix compte.</p>
-  </section>
+  <!-- ============================================================
+       CONTENU
+  ============================================================ -->
+  <main class="main">
 
-  <!-- SHARE BUTTONS -->
-  <section class="share-section">
-    <p class="share-label">Partagez en 1 clic</p>
-    <div class="share-buttons" id="share-buttons">
+    <!-- Accroche -->
+    <section class="pitch">
+      <p class="pitch-headline">C'est avec vous qu'on peut gagner.<br>C'est à vous de voter.</p>
+      <p class="pitch-sub">Partagez ce message — chaque voix compte.</p>
+    </section>
 
-      <a class="share-btn share-btn-whatsapp animate-in" id="btn-whatsapp" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <span class="share-btn-text">Partager sur WhatsApp</span>
-        <span class="share-btn-arrow">&rsaquo;</span>
-      </a>
-
-      <a class="share-btn share-btn-sms animate-in" id="btn-sms" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
-        <span class="share-btn-text">Envoyer par SMS</span>
-        <span class="share-btn-arrow">&rsaquo;</span>
-      </a>
-
-      <a class="share-btn share-btn-telegram animate-in" id="btn-telegram" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        <span class="share-btn-text">Partager sur Telegram</span>
-        <span class="share-btn-arrow">&rsaquo;</span>
-      </a>
-
-      <a class="share-btn share-btn-email animate-in" id="btn-email" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        <span class="share-btn-text">Envoyer par email</span>
-        <span class="share-btn-arrow">&rsaquo;</span>
-      </a>
-
+    <!-- Prévisualisation du message -->
+    <div class="preview-section">
+      <div class="preview-card">
+        <div class="preview-label">
+          <span class="preview-label-dot"></span>
+          Le message que vos proches vont recevoir
+        </div>
+        <div class="message-bubble-wrap">
+          <div class="message-bubble">
+            <span id="preview-text">Chargement du message…</span>
+            <span class="message-bubble-time">maintenant</span>
+          </div>
+        </div>
+        <div class="preview-footer">
+          <span class="preview-footer-text">Envoyé · Lu</span>
+          <span class="preview-checkmarks">✓✓</span>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <!-- CTA PROGRAMME -->
-  <section class="programme-section">
-    <a class="btn-programme" id="btn-programme" href="https://wasquehal-vivante.fr/">
-      Découvrir le programme &rarr;
-    </a>
-  </section>
+    <!-- Boutons de partage -->
+    <section class="share-section">
+      <div class="share-header">
+        <div class="share-header-line"></div>
+        <span class="share-header-label">Choisissez votre canal</span>
+        <div class="share-header-line"></div>
+      </div>
+      <div class="share-buttons">
 
-  <!-- FOOTER -->
+        <a class="share-btn btn-whatsapp" id="btn-whatsapp" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span class="share-btn-label">WhatsApp</span>
+          <span class="share-btn-arrow">›</span>
+        </a>
+
+        <a class="share-btn btn-sms" id="btn-sms" href="#" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg>
+          <span class="share-btn-label">SMS / iMessage</span>
+          <span class="share-btn-arrow">›</span>
+        </a>
+
+        <a class="share-btn btn-telegram" id="btn-telegram" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          <span class="share-btn-label">Telegram</span>
+          <span class="share-btn-arrow">›</span>
+        </a>
+
+        <a class="share-btn btn-email" id="btn-email" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span class="share-btn-label">Email</span>
+          <span class="share-btn-arrow">›</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- CTA programme -->
+    <section class="programme-section">
+      <a class="btn-programme" id="btn-programme" href="https://wasquehal-vivante.fr/" target="_blank" rel="noopener">
+        Découvrir le programme →
+      </a>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
   <footer class="footer">
-    <p class="footer-list">Wasquehal Vivante</p>
+    <p class="footer-name">Wasquehal Vivante</p>
     <div class="footer-links">
-      <a id="link-programme" href="https://wasquehal-vivante.fr/">Programme</a>
-      <a id="link-candidat" href="https://benoit.tirmarche.fr/">Benoit Tirmarche</a>
+      <a id="link-programme" href="https://wasquehal-vivante.fr/" target="_blank" rel="noopener">Programme</a>
+      <a id="link-candidat" href="https://benoit.tirmarche.fr/" target="_blank" rel="noopener">Benoit Tirmarche</a>
     </div>
     <p class="footer-legal">
       Élections municipales — Dimanche 15 mars 2026<br>
@@ -368,48 +558,43 @@
     </p>
   </footer>
 
-</div>
+  <!-- ============================================================
+       JS — charge message.json et câble les URLs
+  ============================================================ -->
+  <script>
+    const FALLBACK = "Salut ! Dimanche, c'est l'élection. C'est la dernière chance de changer la ville les prochaines années. Je soutiens Wasquehal Vivante, je t'encourage à voter pour eux. Regarde leur programme : https://wasquehal-vivante.fr/";
+    const FALLBACK_PROG = 'https://wasquehal-vivante.fr/';
+    const FALLBACK_CAND = 'https://benoit.tirmarche.fr/';
 
-<script>
-  // Charge le message depuis message.json et génère les URLs de partage
-  fetch('message.json')
-    .then(r => r.json())
-    .then(data => {
-      const msg = data.shareText;
+    function applyData(msg, programmeUrl, candidateUrl) {
       const encoded = encodeURIComponent(msg);
-      const programmeUrl = data.programmeUrl || 'https://wasquehal-vivante.fr/';
-      const candidateUrl = data.candidateUrl || 'https://benoit.tirmarche.fr/';
 
-      // WhatsApp
+      // Prévisualisation du message
+      document.getElementById('preview-text').textContent = msg;
+
+      // Boutons de partage
       document.getElementById('btn-whatsapp').href = 'https://wa.me/?text=' + encoded;
-
-      // SMS — &body= sur Android, ?&body= peut poser pb, on utilise ?body=
-      document.getElementById('btn-sms').href = 'sms:?body=' + encoded;
-
-      // Telegram
+      document.getElementById('btn-sms').href      = 'sms:?body=' + encoded;
       document.getElementById('btn-telegram').href =
-        'https://t.me/share/url?url=' + encodeURIComponent(programmeUrl) +
-        '&text=' + encoded;
-
-      // Email
+        'https://t.me/share/url?url=' + encodeURIComponent(programmeUrl) + '&text=' + encoded;
       document.getElementById('btn-email').href =
-        'mailto:?subject=' + encodeURIComponent('Dimanche, votez Wasquehal Vivante') +
-        '&body=' + encoded;
+        'mailto:?subject=' + encodeURIComponent('Dimanche, votez Wasquehal Vivante') + '&body=' + encoded;
 
       // Liens programme / candidat
-      document.getElementById('btn-programme').href = programmeUrl;
+      document.getElementById('btn-programme').href  = programmeUrl;
       document.getElementById('link-programme').href = programmeUrl;
-      document.getElementById('link-candidat').href = candidateUrl;
-    })
-    .catch(() => {
-      // Fallback : message en dur si message.json ne charge pas
-      const msg = encodeURIComponent("Salut ! Dimanche, c'est l'élection. C'est la dernière chance de changer la ville les prochaines années. Je soutiens Wasquehal Vivante, je t'encourage à voter pour eux. Regarde leur programme : https://wasquehal-vivante.fr/");
-      document.getElementById('btn-whatsapp').href = 'https://wa.me/?text=' + msg;
-      document.getElementById('btn-sms').href = 'sms:?body=' + msg;
-      document.getElementById('btn-telegram').href = 'https://t.me/share/url?url=https%3A%2F%2Fwasquehal-vivante.fr%2F&text=' + msg;
-      document.getElementById('btn-email').href = 'mailto:?subject=Dimanche%2C%20votez%20Wasquehal%20Vivante&body=' + msg;
-    });
-</script>
+      document.getElementById('link-candidat').href  = candidateUrl;
+    }
+
+    fetch('message.json')
+      .then(r => r.json())
+      .then(data => applyData(
+        data.shareText   || FALLBACK,
+        data.programmeUrl || FALLBACK_PROG,
+        data.candidateUrl || FALLBACK_CAND
+      ))
+      .catch(() => applyData(FALLBACK, FALLBACK_PROG, FALLBACK_CAND));
+  </script>
 
 </body>
 </html>
