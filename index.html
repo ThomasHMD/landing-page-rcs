@@ -78,20 +78,22 @@
       overflow: hidden;
       background: linear-gradient(135deg, #0c1a35 0%, #1a3060 50%, #162b52 100%);
       padding: env(safe-area-inset-top, 0) 0 0;
+      border-radius: 0 0 var(--r-xl) var(--r-xl);
     }
 
-    /* Bande arc-en-ciel horizontale en haut */
+    /* Bande arc-en-ciel horizontale en haut — fine, discrète */
     .hero-stripe {
-      height: 5px;
+      height: 3px;
       background: linear-gradient(to right, var(--c-rose), var(--c-yellow), var(--c-green), var(--c-blue), var(--c-purple));
     }
 
-    /* Bande arc-en-ciel verticale à gauche — raccord Programme-Municipales */
+    /* Bande arc-en-ciel verticale à gauche — raccord Programme-Municipales (.hero-accent) */
     .hero-accent {
       position: absolute;
       left: 0; top: 0; bottom: 0;
       width: 5px;
       background: linear-gradient(to bottom, var(--c-rose), var(--c-yellow), var(--c-green), var(--c-blue), var(--c-purple));
+      border-radius: 0;
       z-index: 2;
     }
 
