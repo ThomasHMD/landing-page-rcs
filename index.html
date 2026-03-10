@@ -80,10 +80,19 @@
       padding: env(safe-area-inset-top, 0) 0 0;
     }
 
-    /* Bande arc-en-ciel — identique Programme-Municipales */
+    /* Bande arc-en-ciel horizontale en haut */
     .hero-stripe {
       height: 5px;
       background: linear-gradient(to right, var(--c-rose), var(--c-yellow), var(--c-green), var(--c-blue), var(--c-purple));
+    }
+
+    /* Bande arc-en-ciel verticale à gauche — raccord Programme-Municipales */
+    .hero-accent {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: linear-gradient(to bottom, var(--c-rose), var(--c-yellow), var(--c-green), var(--c-blue), var(--c-purple));
+      z-index: 2;
     }
 
     /* Halos décoratifs — mêmes couleurs que le hero du programme */
@@ -186,9 +195,10 @@
     .preview-card {
       background: var(--bg-surface);
       border: 1.5px solid var(--border-subtle);
-      border-radius: var(--r-xl);
+      border-left: 5px solid var(--c-rose);
+      border-radius: var(--r-lg);
       padding: 20px;
-      box-shadow: 0 2px 16px rgba(32, 58, 106, 0.08);
+      box-shadow: 0 2px 12px rgba(32, 58, 106, 0.06);
     }
 
     .preview-label {
@@ -207,16 +217,16 @@
       flex-shrink: 0;
     }
 
-    /* Bulle de message — fond bleu campagne, texte blanc */
+    /* Bulle de message — côté droit = message envoyé */
     .message-bubble-wrap {
       display: flex;
-      justify-content: flex-start;
+      justify-content: flex-end;
     }
 
     .message-bubble {
       background: var(--c-blue);
       color: #fff;
-      border-radius: 4px 18px 18px 18px;
+      border-radius: 18px 18px 4px 18px;
       padding: 14px 16px;
       max-width: 92%;
       font-size: 14.5px;
@@ -226,14 +236,14 @@
       position: relative;
     }
 
-    /* Petite flèche de la bulle */
-    .message-bubble::before {
+    /* Petite flèche côté droit (message envoyé) */
+    .message-bubble::after {
       content: '';
       position: absolute;
-      top: 0; left: -6px;
+      bottom: 0; right: -6px;
       width: 0; height: 0;
-      border-right: 7px solid var(--c-blue);
-      border-bottom: 8px solid transparent;
+      border-left: 7px solid var(--c-blue);
+      border-top: 8px solid transparent;
     }
 
     .message-bubble-time {
@@ -334,7 +344,7 @@
       height: 24px;
       flex-shrink: 0;
     }
-    .share-btn-label { flex: 1; }
+    .share-btn-label { flex: 1; text-align: left; }
     .share-btn-arrow {
       font-size: 20px;
       opacity: 0.55;
@@ -344,6 +354,24 @@
     .btn-sms       { background: #34C759; }
     .btn-telegram  { background: #0088cc; }
     .btn-email     { background: var(--c-blue); }
+
+    /* Sur mobile, boutons full-width */
+    @media (max-width: 640px) {
+      .share-btn { height: 52px; padding: 0 16px; font-size: 14px; border-radius: var(--r-sm); }
+      .share-btn svg { width: 22px; height: 22px; }
+      .hero-inner { padding: 28px 16px 32px; }
+      .hero-eyebrow { font-size: 11px; margin-bottom: 14px; }
+      .main { padding: 0 16px; }
+      .pitch { padding: 20px 0 16px; }
+      .pitch-headline { font-size: 17px; }
+      .pitch-sub { font-size: 14px; }
+      .preview-card { padding: 16px; }
+      .message-bubble { font-size: 13.5px; padding: 12px 14px; }
+      .preview-label { font-size: 10px; }
+      .preview-note { font-size: 11.5px; }
+      .share-header-label { font-size: 10px; }
+      .btn-programme { font-size: 14px; padding: 12px 24px; }
+    }
 
     /* Animation d'entrée */
     @keyframes fadeUp {
@@ -430,6 +458,7 @@
   <!-- HERO -->
   <header class="hero">
     <div class="hero-stripe"></div>
+    <div class="hero-accent"></div>
     <div class="hero-glow-1"></div>
     <div class="hero-glow-2"></div>
     <div class="hero-inner">
